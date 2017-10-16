@@ -30,6 +30,18 @@ RUN buildDeps=" \
     && rm -r /var/lib/apt/lists/* \
     && a2enmod rewrite actions headers
 
+# Enable Remote xdebug
+echo "xdebug.idekey = PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.default_enable = 0" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.remote_autostart = 0" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.remote_connect_back = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.profiler_enable = 0" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.profiler_enable_trigger = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.max_nesting_level = 700" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.profiler_output_name = cachegrind.out.%t.%p" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo "xdebug.profiler_output_dir = /workspace/docker/service-storage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 # Set the locale
 RUN sed -i -e 's/# en_US en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen && dpkg-reconfigure locales
