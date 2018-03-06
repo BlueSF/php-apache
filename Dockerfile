@@ -8,6 +8,7 @@ RUN buildDeps=" \
     libsasl2-dev \
     " \
     runtimeDeps=" \
+    vim \
     curl \
     ssmtp \
     git \
@@ -37,9 +38,9 @@ RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /usr/local/etc/php/conf.d/sendma
 # Set the locale
 RUN sed -i -e 's/# en_US en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen && dpkg-reconfigure locales
-ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
 
 ENV TZ Asia/Seoul
 RUN echo $TZ > /etc/timezone && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
