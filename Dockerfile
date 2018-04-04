@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM bluesf/php-apache:slim-1.0
 
 # Install PHP extensions and PECL modules.
 RUN buildDeps=" \
@@ -22,10 +22,6 @@ RUN buildDeps=" \
     libpq-dev \
     libxml2-dev \
     " \
-    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
-    && docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mcrypt mysqli zip \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd \
     && pecl install redis xdebug mongodb \
     && docker-php-ext-enable redis.so xdebug.so mongodb.so \
     && apt-get purge -y --auto-remove $buildDeps \
