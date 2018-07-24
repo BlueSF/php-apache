@@ -26,8 +26,9 @@ RUN buildDeps=" \
     && docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mcrypt mysqli zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
+    && docker-php-ext-install opcache \
     && pecl install redis xdebug mongodb \
-    && docker-php-ext-enable redis.so xdebug.so mongodb.so \
+    && docker-php-ext-enable redis.so xdebug.so mongodb.so opcache.so \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/* \
     && a2enmod rewrite actions headers
