@@ -4,7 +4,7 @@ FROM php:7.0-apache
 RUN buildDeps=" \
     libbz2-dev \
     libmemcached-dev \
-    libmysqlclient-dev \
+    default-libmysqlclient-dev \
     libsasl2-dev \
     " \
     runtimeDeps=" \
@@ -18,7 +18,7 @@ RUN buildDeps=" \
     libjpeg-dev \
     libmcrypt-dev \
     libmemcachedutil2 \
-    libpng12-dev \
+    libpng-dev \
     libpq-dev \
     libxml2-dev \
     " \
