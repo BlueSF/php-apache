@@ -1,26 +1,21 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 
 # Install PHP extensions and PECL modules.
 RUN buildDeps=" \
     libbz2-dev \
-    libmemcached-dev \
-    libmysqlclient-dev \
+    default-libmysqlclient-dev \
     libsasl2-dev \
     " \
     runtimeDeps=" \
     vim \
-    curl \
-    ssmtp \
-    git \
     locales \
     libfreetype6-dev \
     libicu-dev \
     libjpeg-dev \
     libmcrypt-dev \
     libmemcachedutil2 \
-    libpng12-dev \
+    libpng-dev \
     libpq-dev \
-    libxml2-dev \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
     && docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mcrypt mysqli zip \
@@ -30,5 +25,8 @@ RUN buildDeps=" \
     && rm -r /var/lib/apt/lists/* \
     && a2enmod rewrite actions headers
 
-EXPOSE 80
+ENV TZ Asia/Seoul
+RUN echo $TZ > /etc/timezone && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+
+EXPOSE 80 443
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
