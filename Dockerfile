@@ -8,6 +8,7 @@ RUN buildDeps=" \
     vim \
     locales \
     libmcrypt-dev \
+    libicu-dev \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
     && docker-php-ext-install iconv intl mbstring mcrypt mysqli zip \
